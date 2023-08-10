@@ -1,4 +1,6 @@
-# A 2D simulator to help beginning Java programmers learn to program for FTC Robotics.
+#You don't want this repo. You want [the original one](https://github.com/Beta8397/virtual_robot) from Beta8397.
+
+## A 2D simulator to help beginning Java programmers learn to program for FTC Robotics.
 
 New:  Updated to reflect changes in FTC SDK 8.1, with addition of the IMU interface, ImuOrientationOnRobot interface,
     RevHubOrientationOnRobot class, and Quaternion class. All robot configurations have an imu which can be used
