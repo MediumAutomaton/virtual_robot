@@ -2,6 +2,7 @@ package virtual_robot.config;
 
 import javafx.scene.image.Image;
 import virtual_robot.controller.Game;
+import virtual_robot.games.CenterStage;
 import virtual_robot.games.FreightFrenzy;
 import virtual_robot.games.NoGame;
 import virtual_robot.games.UltimateGoal;
@@ -31,7 +32,7 @@ public class Config {
     /**
      * The image object for the field.
      */
-    public static final Image BACKGROUND = new Image("/virtual_robot/assets/power_play648.bmp");
+    public static final Image BACKGROUND = new Image("/virtual_robot/assets/centerstage648.bmp");
 
     /**
      * If true, Virtual Gamepad joysticks and triggers will stay in the position where they were
@@ -46,7 +47,7 @@ public class Config {
      * Define the game.  This must match the forGame attribute of the GameElementConfig annotation
      * on the VirtualGameElement implementations.
      */
-    public static final Game GAME = new NoGame();
+    public static final Game GAME = new CenterStage();
 
     /**
      * Friction coefficient between field and robot wheels. A very high value will minimize the effect
