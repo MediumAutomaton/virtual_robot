@@ -39,7 +39,11 @@ public class DriveSplineSimple extends OpMode {
             case BEGIN:
                 state = State.AWAY;
                 traj = new TrajectoryBuilder(new Pose2d(), false, bot.velocityConstraint, bot.accelConstraint)
-                        .splineTo(new Vector2d(30, 30), 0)
+                        //.splineTo(new Vector2d(30, 30), 0)
+//                        .splineToConstantHeading(new Vector2d(28, 0), 0)
+//                        .splineToConstantHeading(new Vector2d(30, 2), 0)
+                        .splineToConstantHeading(new Vector2d(30, 30), Math.toRadians(-90))
+                        .splineToConstantHeading(new Vector2d(0, 60), Math.toRadians(180))
                         .build();
                 bot.follower.followTrajectory(traj);
                 break;
