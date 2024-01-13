@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.teamcode.fy23.controls.GamepadDTS;
 import org.firstinspires.ftc.teamcode.fy23.controls.GamepadInterface;
 
 @TeleOp(name= "DriveCode", group = "Linear opmode")
@@ -71,7 +72,7 @@ public class Drivecode extends LinearOpMode {
 //        forwardMovement = rightStickYLinear;
 //        strafeMovement = rightStickXLinear;
 //        rotateMovement = leftStickXLinear;
-        GamepadInterface gamePad = new GamepadInterface() {
+        GamepadInterface gamePad = new GamepadDTS(gamepad1, gamepad2) {
             @Override
             public double forwardMovement() {
                 return rightStickYLinear(1,1);

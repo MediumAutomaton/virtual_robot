@@ -2,41 +2,42 @@ package org.firstinspires.ftc.teamcode.fy23.controls;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-public class GamepadThreeAxis implements GamepadInterface {
+public class GamepadLinearOld implements GamepadInterface {
     private Gamepad gamepad1;
     private Gamepad gamepad2;
-    public GamepadThreeAxis(Gamepad initgamepad1, Gamepad initgamepad2) {
+    public GamepadLinearOld(Gamepad initgamepad1, Gamepad initgamepad2) {
         gamepad1 = initgamepad1;
         gamepad2 = initgamepad2;
     }
     @Override
     public double forwardMovement() {
-        return GamepadInputs.rightTriggerLinear(gamepad1, 1) - GamepadInputs.leftTriggerLinear(gamepad1, 1);
+        return GamepadInputs.rightStickYLinear(gamepad1, 1);
     }
 
     @Override
     public double strafeMovement() {
-        return GamepadInputs.rightStickXExponential(gamepad1, 1);
+        return GamepadInputs.rightStickXLinear(gamepad1, 1);
     }
 
     @Override
     public double rotateMovement() {
-        return GamepadInputs.leftStickXExponential(gamepad1, 1);
+        return GamepadInputs.leftStickXLinear(gamepad1, 1);
     }
 
     @Override
     public double armForward() {
-        return 0;
+        return GamepadInputs.buttonB(gamepad2);
     }
 
     @Override
     public double armBackward() {
-        return 0;
+        return GamepadInputs.buttonY(gamepad2);
     }
 
     @Override
     public double armMovement() {
-        return 0;
+        double net = GamepadInputs.buttonDpadUp(gamepad2) - GamepadInputs.buttonDpadDown(gamepad2);
+        return net;
     }
 
     @Override
@@ -51,17 +52,18 @@ public class GamepadThreeAxis implements GamepadInterface {
 
     @Override
     public double elevatorMovement() {
-        return 0;
+        double net = GamepadInputs.rightTriggerLinear(gamepad2, 1) - GamepadInputs.leftTriggerLinear(gamepad2, 1);
+        return net;
     }
 
     @Override
     public double clawOpen() {
-        return 0;
+        return GamepadInputs.buttonX(gamepad2);
     }
 
     @Override
     public double clawClose() {
-        return 0;
+        return GamepadInputs.buttonA(gamepad2);
     }
 
     @Override

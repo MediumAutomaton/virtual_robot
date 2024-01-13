@@ -2,26 +2,30 @@ package org.firstinspires.ftc.teamcode.fy23.controls;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-public class GamepadThreeAxis implements GamepadInterface {
-    private Gamepad gamepad1;
-    private Gamepad gamepad2;
-    public GamepadThreeAxis(Gamepad initgamepad1, Gamepad initgamepad2) {
+public class GamepadDefault implements GamepadInterface {
+    public Gamepad gamepad1;
+    public Gamepad gamepad2;
+    public GamepadDefault(Gamepad initgamepad1, Gamepad initgamepad2) {
         gamepad1 = initgamepad1;
         gamepad2 = initgamepad2;
     }
+
+    public GamepadDefault() {
+    }
+
     @Override
     public double forwardMovement() {
-        return GamepadInputs.rightTriggerLinear(gamepad1, 1) - GamepadInputs.leftTriggerLinear(gamepad1, 1);
+        return 0;
     }
 
     @Override
     public double strafeMovement() {
-        return GamepadInputs.rightStickXExponential(gamepad1, 1);
+        return 0;
     }
 
     @Override
     public double rotateMovement() {
-        return GamepadInputs.leftStickXExponential(gamepad1, 1);
+        return 0;
     }
 
     @Override
