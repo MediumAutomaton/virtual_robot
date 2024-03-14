@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.fy23.controls;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-public class GamepadLinearOld implements GamepadInterface {
+public class GamepadLinearOld extends GamepadDefault {
     private Gamepad gamepad1;
     private Gamepad gamepad2;
     public GamepadLinearOld(Gamepad initgamepad1, Gamepad initgamepad2) {
@@ -40,12 +40,12 @@ public class GamepadLinearOld implements GamepadInterface {
         return net;
     }
 
-    @Override
+
     public double armMediumMovement() {
         return 0;
     }
 
-    @Override
+
     public double armFastMovement() {
         return 0;
     }
@@ -67,11 +67,6 @@ public class GamepadLinearOld implements GamepadInterface {
     }
 
     @Override
-    public double planeLaunch() {
-        return 0;
-    }
-
-    @Override
     public double maxDrivePowerUp() {
         return 0;
     }
@@ -79,5 +74,15 @@ public class GamepadLinearOld implements GamepadInterface {
     @Override
     public double maxDrivePowerDown() {
         return 0;
+    }
+
+    @Override
+    public double planeLaunch() {
+        return 0;
+    }
+
+
+    public void runOpMode() throws InterruptedException {
+
     }
 }

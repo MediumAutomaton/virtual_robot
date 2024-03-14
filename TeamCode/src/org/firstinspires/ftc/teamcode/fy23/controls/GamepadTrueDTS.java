@@ -82,8 +82,26 @@ public class GamepadTrueDTS extends GamepadDefault {
         }
     }
 
+    public boolean changeUp() {
+        if (GamepadInputs.buttonStart(driver) == 1 && buttonTimer.milliseconds() > buttonRest) {
+            buttonTimer.reset();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean changeDown() {
+        if (GamepadInputs.buttonBack(driver) == 1 && buttonTimer.milliseconds() > buttonRest) {
+            buttonTimer.reset();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public boolean hdgUp() {
-        if (GamepadInputs.buttonDpadRight(driver) == 1) {
+        if (GamepadInputs.buttonDpadRight(driver) == 1 && buttonTimer.milliseconds() > buttonRest) {
             return true;
         } else {
             return false;
@@ -91,7 +109,15 @@ public class GamepadTrueDTS extends GamepadDefault {
     }
 
     public boolean hdgDown() {
-        if (GamepadInputs.buttonDpadLeft(driver) == 1) {
+        if (GamepadInputs.buttonDpadLeft(driver) == 1 && buttonTimer.milliseconds() > buttonRest) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean save() {
+        if (GamepadInputs.rightBumper(driver) == 1 && buttonTimer.milliseconds() > buttonRest) {
             return true;
         } else {
             return false;

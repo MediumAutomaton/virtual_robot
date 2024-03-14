@@ -102,7 +102,7 @@ public abstract class OpMode extends VirtualRobotController.OpModeBase {
      * This method is optional. By default this method takes not action.
      * Example usage: Starting another thread.
      */
-    public void start() {
+    public void start() throws InterruptedException {
     }
 
 
@@ -111,7 +111,7 @@ public abstract class OpMode extends VirtualRobotController.OpModeBase {
      * <p>
      * This method will be called repeatedly in a loop while this op mode is running
      */
-    abstract public void loop();
+    abstract public void loop() throws InterruptedException;
 
     /**
      * User defined stop method
