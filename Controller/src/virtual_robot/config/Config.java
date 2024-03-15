@@ -27,7 +27,7 @@ public class Config {
     /**
      * Whether to use "Virtual Gamepad" (true -> Virtual gamepad, false -> Real gamepad)
      */
-    public static final boolean USE_VIRTUAL_GAMEPAD = true;
+    public static final boolean USE_VIRTUAL_GAMEPAD = false;
 
     /**
      * The image object for the field.
@@ -48,7 +48,7 @@ public class Config {
      * on the VirtualGameElement implementations.
      */
 //    public static final Game GAME = new CenterStage();
-    public static final Game GAME = new NoGame();
+    public static final Game GAME = new NoGame(); //no collision
 
     /**
      * Friction coefficient between field and robot wheels. A very high value will minimize the effect

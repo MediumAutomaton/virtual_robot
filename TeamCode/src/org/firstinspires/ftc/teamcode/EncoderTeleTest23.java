@@ -17,18 +17,28 @@ public class EncoderTeleTest23 extends OpMode {
 
     //Configure the Safety Check
     ElapsedTime safetyCheckClock;
-    int safetyCheckInterval = 100;
-    int requiredDistance = 50;
+    int safetyCheckInterval = 600;
+    final int requiredDistance = 19;
 
-    int currentPos = 0;
+    int currentMotorPos = 0;
     boolean safetyCheck() { //returns true if continued operation is safe, false if unsafe
-        int currentMotorPos = motor.getCurrentPosition();
-        if ((lastMotorPos > Math.abs(currentMotorPos - requiredDistance)) && (Math.abs(lastMotorPos - motor.getTargetPosition()) > requiredDistance)) {
+        currentMotorPos = motor.getCurrentPosition();
+        telCurrentPos.setValue(currentMotorPos);
+        telLastPos.setValue(lastMotorPos);
+//        if ((lastMotorPos > Math.abs(currentMotorPos - requiredDistance)) && (Math.abs(lastMotorPos - motor.getTargetPosition()) > requiredDistance)) {
+        if (requiredDistance > Math.abs(currentMotorPos - lastMotorPos) && (Math.abs(lastMotorPos - motor.getTargetPosition()) > requiredDistance)) {
             //if we haven't moved requiredDistance ticks since last we checked (since the safetyCheckInterval last came around)
             //and we actually have somewhere to go
-            return false;
+            telSafetyPassing.setValue(false);
+            telemetry.clearAll();
+            telemetry.addData("lastMotorPos", lastMotorPos);
+            telemetry.addData("currentMotorPos", currentMotorPos);
+            telemetry.update();
+            while (true) {telemetry.update();}
+//            return false;
         } else {
             lastMotorPos = currentMotorPos;
+            telSafetyPassing.setValue(true);
             return true;
         }
     }
@@ -52,6 +62,13 @@ public class EncoderTeleTest23 extends OpMode {
 
     Telemetry.Log log = telemetry.log();
     //Get the log. Append a message to the bottom of Telemetry with log.add("msg");
+    Telemetry.Item telSafetyPassing;
+    Telemetry.Item telCond1;
+    Telemetry.Item telCond2;
+    Telemetry.Item telLastPos;
+    Telemetry.Item telCurrentPos;
+    Telemetry.Item telPosDIff;
+
     Telemetry.Item telStagedA;
     Telemetry.Item telStagedB;
     Telemetry.Item telActiveTarget;
@@ -134,6 +151,14 @@ public class EncoderTeleTest23 extends OpMode {
         safetyCheckClock = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
 
         //Send initial telemetry
+//        telSafetyPassing = telemetry.addData("Safety Check passing", safetyCheck());
+        telSafetyPassing = telemetry.addData("Safety Check passing", "Who knows?");
+        telCond1 = telemetry.addData("First condition", (lastMotorPos > Math.abs(currentMotorPos - requiredDistance)));
+        telCond2 = telemetry.addData("Second condition", (Math.abs(lastMotorPos - motor.getTargetPosition()) > requiredDistance));
+        telLastPos = telemetry.addData("Last Position", lastMotorPos);
+        telCurrentPos = telemetry.addData("Current Position", currentMotorPos);
+        telPosDIff = telemetry.addData("Difference", currentMotorPos - lastMotorPos);
+
         telStagedA = telemetry.addData("->>>Staged Target A", targetPosA);
         //telStagedA is now a Telemetry.Item that we can call functions on!
         //Hover over the text "Telemetry.Item" in Studio.
@@ -190,11 +215,18 @@ public class EncoderTeleTest23 extends OpMode {
         telSetPower.setValue(motorPower);
         telActualPower.setValue(motor.getPower());
 
+//        telLastPos.setValue(lastMotorPos);
+//        telCurrentPos.setValue(currentMotorPos);
+        telPosDIff.setValue(motor.getCurrentPosition()-lastMotorPos);
+
         //Safety Check
         if (safetyCheckClock.milliseconds() > safetyCheckInterval) {
+            telCond1.setValue((lastMotorPos > Math.abs(currentMotorPos - requiredDistance)));
+            telCond2.setValue((Math.abs(lastMotorPos - motor.getTargetPosition()) > requiredDistance));
             safetyCheckClock.reset();
-//            if (!safetyCheck()) {
-            if (false) { //disabled feature :(
+            safetyCheck();
+            if (!safetyCheck()) {
+//            if (false) { //disabled feature :(
                 motor.setPower(0);
                 motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 telemetry.clearAll();
@@ -277,12 +309,14 @@ public class EncoderTeleTest23 extends OpMode {
             motor.setPower(motorPower);
             motor.setTargetPosition(targetPosA);
             otherDeb.reset();
+            safetyCheckClock.reset();
 
             //Set the Active Target to Staged Target B
         } else if (gamepad1.b && otherDeb.milliseconds() > otherDebTime) {
             motor.setPower(motorPower);
             motor.setTargetPosition(targetPosB);
             otherDeb.reset();
+            safetyCheckClock.reset();
 
             //Stop Motor
         } else if (gamepad1.x && otherDeb.milliseconds() > otherDebTime) {
