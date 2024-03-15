@@ -2,14 +2,17 @@ package org.firstinspires.ftc.teamcode.fy23.controls;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-public class GamepadLinear extends GamepadDefault {
-    public GamepadLinear(Gamepad initgamepad1, Gamepad initgamepad2) {
+public class GamepadDTS extends GamepadDefault {
+    private Gamepad gamepad1;
+    private Gamepad gamepad2;
+    public GamepadDTS(Gamepad initgamepad1, Gamepad initgamepad2) {
         super(initgamepad1, initgamepad2);
+        gamepad1 = initgamepad1;
+        gamepad2 = initgamepad2;
     }
-
     @Override
     public double forwardMovement() {
-        return GamepadInputs.rightStickYLinear(gamepad1, 1);
+        return GamepadInputs.rightTriggerLinear(gamepad1, 1) - GamepadInputs.leftTriggerLinear(gamepad1, 1);
     }
 
     @Override
@@ -36,6 +39,22 @@ public class GamepadLinear extends GamepadDefault {
     public double armMovement() {
         double net = GamepadInputs.buttonDpadUp(gamepad2) - GamepadInputs.buttonDpadDown(gamepad2);
         return net;
+    }
+
+    public double armMediumMovement() {
+        double net = GamepadInputs.buttonDpadRight(gamepad2) - GamepadInputs.buttonDpadLeft(gamepad2);
+        return net;
+    }
+
+    public double armFastMovement() {
+        double y = gamepad2.left_stick_y;
+        if (y > 0) {
+            return -GamepadInputs.leftStickYExponential(gamepad2, 2);
+            //negative because the Y-axis is inverted on the gamepad itself
+        } else {
+            return GamepadInputs.leftStickYExponential(gamepad2, 2);
+        }
+
     }
 
     @Override

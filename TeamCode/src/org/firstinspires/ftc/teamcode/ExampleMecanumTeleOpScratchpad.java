@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.fy23.controls.GamepadInterface;
 import org.firstinspires.ftc.teamcode.fy23.controls.GamepadLinear;
-import org.firstinspires.ftc.teamcode.fy23.controls.GamepadThreeAxis;
+import org.firstinspires.ftc.teamcode.fy23.controls.GamepadDTS;
 
 import java.util.ArrayList;
 
@@ -55,10 +55,10 @@ public class ExampleMecanumTeleOpScratchpad extends OpMode {
         leftBack.setDirection(DcMotor.Direction.REVERSE);
         rightBack.setDirection(DcMotor.Direction.FORWARD);
 
-        gamepadList.add(new GamepadThreeAxis(gamepad1, gamepad2));
+        gamepadList.add(new GamepadDTS(gamepad1, gamepad2));
         gamepadList.add(new GamepadLinear(gamepad1, gamepad2));
 
-        gamepadNameList.add("GamepadThreeAxis");
+        gamepadNameList.add("GamepadDTS");
         gamepadNameList.add("GamepadLinear");
 
         currentGamepadIdx = 0;
